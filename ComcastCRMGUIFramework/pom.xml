@@ -4,9 +4,30 @@
   <artifactId>ComcastCRMGUIFramework</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
-  <build>
-    <plugins>
-        <plugin>
+  <profiles>
+  	<profile>
+  		<id>SMOKETEST</id>
+  			<build>
+    		<plugins>
+        	<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M7</version>
+            <configuration>
+                <suiteXmlFiles>
+                    <suiteXmlFile>suite_SmokeTesting.xml</suiteXmlFile>
+                </suiteXmlFiles>
+            </configuration>
+        	</plugin>
+    		</plugins>
+			</build>
+  	</profile>
+  
+  	<profile>
+  		<id>FULLREGRESSIONTEST</id>
+  			<build>
+    		<plugins>
+        	<plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.0.0-M7</version>
@@ -15,9 +36,66 @@
                     <suiteXmlFile>suite_FullRegressionTesting.xml</suiteXmlFile>
                 </suiteXmlFiles>
             </configuration>
-        </plugin>
-    </plugins>
-</build>
+        	</plugin>
+    		</plugins>
+			</build>
+  	</profile>
+  	
+  	<profile>
+  		<id>BATCTHEXECUTION</id>
+  			<build>
+    		<plugins>
+        	<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M7</version>
+            <configuration>
+                <suiteXmlFiles>
+                    <suiteXmlFile>testng_BatchExecution.xml</suiteXmlFile>
+                </suiteXmlFiles>
+            </configuration>
+        	</plugin>
+    		</plugins>
+			</build>
+  	</profile>
+  	
+  	<profile>
+  		<id>PARELLELEXECUTIONTEST</id>
+  			<build>
+    		<plugins>
+        	<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M7</version>
+            <configuration>
+                <suiteXmlFiles>
+                    <suiteXmlFile>suite_parallel_ExecutionTest.xml</suiteXmlFile>
+                </suiteXmlFiles>
+            </configuration>
+        	</plugin>
+    		</plugins>
+			</build>
+  	</profile>
+  	
+  	<profile>
+  		<id>PARELLELCROSSBROWSERTEST</id>
+  			<build>
+    		<plugins>
+        	<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M7</version>
+            <configuration>
+                <suiteXmlFiles>
+                    <suiteXmlFile>suite_parallel_crossbrowserTest.xml</suiteXmlFile>
+                </suiteXmlFiles>
+            </configuration>
+        	</plugin>
+    		</plugins>
+			</build>
+  	</profile>
+  </profiles>
+  
   
   <dependencies>
 	<!-- Source: https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
