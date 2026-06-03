@@ -1,11 +1,17 @@
 package com.comcast.crm.generic.baseUtility;
 
+import java.net.URI;
+import java.net.URL;
 import java.sql.SQLException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -31,42 +37,55 @@ public class BaseClass {
 	public ExcelUtility eLib = new ExcelUtility();
 	public JavaUtility jLib = new JavaUtility();
 	public DatabaseUtility dbLib = new DatabaseUtility();
-	
+
 	protected WebDriver driver;
-    protected WebDriverUtility wLib;
+	protected WebDriverUtility wLib;
 
 	@BeforeSuite(alwaysRun = true)
 	public void connectTodB() throws SQLException {
 		dbLib.getDbConnection();
 		System.out.println("===Execute Before Suite===");
 	}
-	
+
 	@BeforeTest
-	public void configBT(){
+	public void configBT() {
 		System.out.println("===Execute Before Test===");
 	}
-	
-	//@Parameters("BROWSER")
-	@BeforeClass(alwaysRun = true)
-	public void launchBrowser() throws Throwable {
-		
-		//String BROWSER = fLib.getDataFromPropFile("browser");
-		//String BROWSER = browser;
-		String BROWSER = System.getProperty("browser");
 
-		if (BROWSER.equals("chrome")) {
-			driver = new ChromeDriver();
-		} else if (BROWSER.equals("firefox")) {
-			driver = new FirefoxDriver();
-		} else if (BROWSER.equals("edge")) {
-			driver = new EdgeDriver();
-		} else {
-			driver = new ChromeDriver();
+	@Parameters("BROWSER")
+	@BeforeClass(alwaysRun = true)
+	public void launchBrowser(String BN) throws Throwable {
+
+//		//String BROWSER = fLib.getDataFromPropFile("browser");
+//		//String BROWSER = browser;
+//		String BROWSER = System.getProperty("browser");
+//
+//		if (BROWSER.equals("chrome")) {
+//			driver = new ChromeDriver();
+//		} else if (BROWSER.equals("firefox")) {
+//			driver = new FirefoxDriver();
+//		} else if (BROWSER.equals("edge")) {
+//			driver = new EdgeDriver();
+//		} else {
+//			driver = new ChromeDriver();
+//		}
+
+		URL ipAdd = URI.create("http://localhost:4444").toURL();
+
+		if (BN.equals("chrome")) {
+			ChromeOptions option = new ChromeOptions();
+			driver = new RemoteWebDriver(ipAdd, option);
+		} else if (BN.equals("firefox")) {
+			FirefoxOptions option = new FirefoxOptions();
+			driver = new RemoteWebDriver(ipAdd, option);
+		} else if (BN.equals("edge")) {
+			EdgeOptions option = new EdgeOptions();
+			driver = new RemoteWebDriver(ipAdd, option);
 		}
 
 		UtilityClassObject.setDriver(driver);
 
-		//UtilityClassObject.getDriver().manage().window().maximize();
+		// UtilityClassObject.getDriver().manage().window().maximize();
 		wLib = new WebDriverUtility(driver);
 		wLib.setImplicitlyWait();
 
@@ -90,30 +109,29 @@ public class BaseClass {
 
 	@AfterMethod(alwaysRun = true)
 	public void logOutFromApp() {
-		
+
 		LogOut lo = new LogOut(driver);
 		lo.logOut();
 	}
-	
 
 	@AfterClass(alwaysRun = true)
 	public void configAC() {
-	    if (driver != null) {
-	        driver.quit();
-	        UtilityClassObject.unload();
-	    }
-		
+		if (driver != null) {
+			driver.quit();
+			UtilityClassObject.unload();
+		}
+
 		System.out.println("==Execute After Class==");
 	}
-	
+
 	@AfterTest
-	public void configAT(){
+	public void configAT() {
 		System.out.println("===Execute After Test===");
 	}
 
 	@AfterSuite(alwaysRun = true)
 	public void closeThedB() throws SQLException {
-		
+
 		dbLib.closeDbConnection();
 		System.out.println("===Execute After Suite===");
 	}
