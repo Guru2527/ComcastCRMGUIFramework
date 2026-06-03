@@ -9,14 +9,6 @@
     </classes>
   </test> <!-- Test -->
   
-  <test name="FirefoxTest">
-  <parameter name="BROWSER" value="firefox"/>
-    <classes>
-      <class name="com.comcast.crm.contactTest_TestNG.CreateContactTest"/>
-      <class name="com.comcast.crm.orgTest_TestNG.CreateOrganizationTest"/>
-    </classes>
-  </test> <!-- Test -->
-  
   <test name="EdgeTest">
   <parameter name="BROWSER" value="edge"/>
     <classes>

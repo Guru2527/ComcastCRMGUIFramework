@@ -56,9 +56,9 @@ public class BaseClass {
 	@BeforeClass(alwaysRun = true)
 	public void launchBrowser(String BN) throws Throwable {
 
-//		//String BROWSER = fLib.getDataFromPropFile("browser");
+//		String BROWSER = fLib.getDataFromPropFile("browser");
 //		//String BROWSER = browser;
-//		String BROWSER = System.getProperty("browser");
+//		//String BROWSER = System.getProperty("browser");
 //
 //		if (BROWSER.equals("chrome")) {
 //			driver = new ChromeDriver();
@@ -98,6 +98,10 @@ public class BaseClass {
 		String URL = System.getProperty("url");
 		String USERNAME = System.getProperty("username");
 		String PASSWORD = System.getProperty("password");
+		
+//		String URL = fLib.getDataFromPropFile("url");
+//		String USERNAME = fLib.getDataFromPropFile("username");
+//		String PASSWORD = fLib.getDataFromPropFile("password");
 
 		UtilityClassObject.getDriver().get(URL);
 
