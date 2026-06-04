@@ -107,6 +107,12 @@ public class BaseClass {
 
 	@BeforeMethod(alwaysRun = true)
 	public void logInToApp() throws Throwable {
+		
+		System.out.println(
+			    "Thread ID: " + Thread.currentThread().getId()
+			    + " Session ID: "
+			    + ((RemoteWebDriver) driver).getSessionId()
+			);
 
 		String URL = System.getProperty("url");
 		String USERNAME = System.getProperty("username");
