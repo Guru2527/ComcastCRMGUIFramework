@@ -60,15 +60,15 @@ public class BaseClass {
 		//String BROWSER = browser;
 		String BROWSER = System.getProperty("browser");
 
-		if (BROWSER.equals("chrome")) {
-			driver = new ChromeDriver();
-		} else if (BROWSER.equals("firefox")) {
-			driver = new FirefoxDriver();
-		} else if (BROWSER.equals("edge")) {
-			driver = new EdgeDriver();
-		} else {
-			driver = new ChromeDriver();
-		}
+//		if (BROWSER.equals("chrome")) {
+//			driver = new ChromeDriver();
+//		} else if (BROWSER.equals("firefox")) {
+//			driver = new FirefoxDriver();
+//		} else if (BROWSER.equals("edge")) {
+//			driver = new EdgeDriver();
+//		} else {
+//			driver = new ChromeDriver();
+//		}
 
 //		URL ipAdd = URI.create("http://localhost:4444").toURL();
 //
@@ -82,6 +82,19 @@ public class BaseClass {
 //			EdgeOptions option = new EdgeOptions();
 //			driver = new RemoteWebDriver(ipAdd, option);
 //		}
+		
+		URL ipAdd = URI.create("http://localhost:4444").toURL();
+
+		if (BROWSER.equals("chrome")) {
+			ChromeOptions option = new ChromeOptions();
+			driver = new RemoteWebDriver(ipAdd, option);
+		} else if (BROWSER.equals("firefox")) {
+			FirefoxOptions option = new FirefoxOptions();
+			driver = new RemoteWebDriver(ipAdd, option);
+		} else if (BROWSER.equals("edge")) {
+			EdgeOptions option = new EdgeOptions();
+			driver = new RemoteWebDriver(ipAdd, option);
+		}
 
 		UtilityClassObject.setDriver(driver);
 
