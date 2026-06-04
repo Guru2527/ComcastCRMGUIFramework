@@ -52,36 +52,36 @@ public class BaseClass {
 		System.out.println("===Execute Before Test===");
 	}
 
-	@Parameters("BROWSER")
+	//@Parameters("BROWSER")
 	@BeforeClass(alwaysRun = true)
-	public void launchBrowser(String BN) throws Throwable {
+	public void launchBrowser() throws Throwable {
 
-//		String BROWSER = fLib.getDataFromPropFile("browser");
-//		//String BROWSER = browser;
-//		//String BROWSER = System.getProperty("browser");
-//
-//		if (BROWSER.equals("chrome")) {
-//			driver = new ChromeDriver();
-//		} else if (BROWSER.equals("firefox")) {
-//			driver = new FirefoxDriver();
-//		} else if (BROWSER.equals("edge")) {
-//			driver = new EdgeDriver();
-//		} else {
-//			driver = new ChromeDriver();
-//		}
+		//String BROWSER = fLib.getDataFromPropFile("browser");
+		//String BROWSER = browser;
+		String BROWSER = System.getProperty("browser");
 
-		URL ipAdd = URI.create("http://localhost:4444").toURL();
-
-		if (BN.equals("chrome")) {
-			ChromeOptions option = new ChromeOptions();
-			driver = new RemoteWebDriver(ipAdd, option);
-		} else if (BN.equals("firefox")) {
-			FirefoxOptions option = new FirefoxOptions();
-			driver = new RemoteWebDriver(ipAdd, option);
-		} else if (BN.equals("edge")) {
-			EdgeOptions option = new EdgeOptions();
-			driver = new RemoteWebDriver(ipAdd, option);
+		if (BROWSER.equals("chrome")) {
+			driver = new ChromeDriver();
+		} else if (BROWSER.equals("firefox")) {
+			driver = new FirefoxDriver();
+		} else if (BROWSER.equals("edge")) {
+			driver = new EdgeDriver();
+		} else {
+			driver = new ChromeDriver();
 		}
+
+//		URL ipAdd = URI.create("http://localhost:4444").toURL();
+//
+//		if (BN.equals("chrome")) {
+//			ChromeOptions option = new ChromeOptions();
+//			driver = new RemoteWebDriver(ipAdd, option);
+//		} else if (BN.equals("firefox")) {
+//			FirefoxOptions option = new FirefoxOptions();
+//			driver = new RemoteWebDriver(ipAdd, option);
+//		} else if (BN.equals("edge")) {
+//			EdgeOptions option = new EdgeOptions();
+//			driver = new RemoteWebDriver(ipAdd, option);
+//		}
 
 		UtilityClassObject.setDriver(driver);
 
