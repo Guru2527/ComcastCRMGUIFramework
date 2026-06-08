@@ -8,12 +8,12 @@
           <include name="connectTodB"/>
           <include name="createOrganizationTest"/>
           <include name="launchBrowser"/>
-          <include name="createOrganizationWithPhoneNumber"/>
-          <include name="createOrganizationWithIndustries"/>
           <include name="logOutFromApp"/>
-          <include name="setUP"/>
           <include name="closeThedB"/>
+          <include name="configAT"/>
+          <include name="logInToApp"/>
           <include name="configAC"/>
+          <include name="configBT"/>
         </methods>
       </class> <!-- com.comcast.crm.orgTest_TestNG.CreateOrganizationTest -->
     </classes>
