@@ -56,19 +56,19 @@ public class BaseClass {
 	@BeforeClass(alwaysRun = true)
 	public void launchBrowser() throws Throwable {
 
-		//String BROWSER = fLib.getDataFromPropFile("browser");
+		String BROWSER = fLib.getDataFromPropFile("browser");
 		//String BROWSER = browser;
-		String BROWSER = System.getProperty("browser");
+		//String BROWSER = System.getProperty("browser");
 
-//		if (BROWSER.equals("chrome")) {
-//			driver = new ChromeDriver();
-//		} else if (BROWSER.equals("firefox")) {
-//			driver = new FirefoxDriver();
-//		} else if (BROWSER.equals("edge")) {
-//			driver = new EdgeDriver();
-//		} else {
-//			driver = new ChromeDriver();
-//		}
+		if (BROWSER.equals("chrome")) {
+			driver = new ChromeDriver();
+		} else if (BROWSER.equals("firefox")) {
+			driver = new FirefoxDriver();
+		} else if (BROWSER.equals("edge")) {
+			driver = new EdgeDriver();
+		} else {
+			driver = new ChromeDriver();
+		}
 
 //		URL ipAdd = URI.create("http://localhost:4444").toURL();
 //
@@ -82,19 +82,7 @@ public class BaseClass {
 //			EdgeOptions option = new EdgeOptions();
 //			driver = new RemoteWebDriver(ipAdd, option);
 //		}
-		
-		URL ipAdd = URI.create("http://localhost:4444").toURL();
-
-		if (BROWSER.equals("chrome")) {
-			ChromeOptions option = new ChromeOptions();
-			driver = new RemoteWebDriver(ipAdd, option);
-		} else if (BROWSER.equals("firefox")) {
-			FirefoxOptions option = new FirefoxOptions();
-			driver = new RemoteWebDriver(ipAdd, option);
-		} else if (BROWSER.equals("edge")) {
-			EdgeOptions option = new EdgeOptions();
-			driver = new RemoteWebDriver(ipAdd, option);
-		}
+	
 
 		UtilityClassObject.setDriver(driver);
 
@@ -113,14 +101,14 @@ public class BaseClass {
 			    + " Session ID: "
 			    + ((RemoteWebDriver) driver).getSessionId()
 			);
-
-		String URL = System.getProperty("url");
-		String USERNAME = System.getProperty("username");
-		String PASSWORD = System.getProperty("password");
 		
-//		String URL = fLib.getDataFromPropFile("url");
-//		String USERNAME = fLib.getDataFromPropFile("username");
-//		String PASSWORD = fLib.getDataFromPropFile("password");
+		String URL = fLib.getDataFromPropFile("url");
+		String USERNAME = fLib.getDataFromPropFile("username");
+		String PASSWORD = fLib.getDataFromPropFile("password");
+
+//		String URL = System.getProperty("url");
+//		String USERNAME = System.getProperty("username");
+//		String PASSWORD = System.getProperty("password");
 
 		UtilityClassObject.getDriver().get(URL);
 
