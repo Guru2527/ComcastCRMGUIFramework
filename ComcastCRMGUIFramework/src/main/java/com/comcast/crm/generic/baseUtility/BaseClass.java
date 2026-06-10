@@ -52,12 +52,12 @@ public class BaseClass {
 		System.out.println("===Execute Before Test===");
 	}
 
-	//@Parameters("BROWSER")
+	@Parameters("BROWSER")
 	@BeforeClass(alwaysRun = true)
-	public void launchBrowser() throws Throwable {
+	public void launchBrowser(String browser) throws Throwable {
 
-		String BROWSER = fLib.getDataFromPropFile("browser");
-		//String BROWSER = browser;
+		//String BROWSER = fLib.getDataFromPropFile("browser");
+		String BROWSER = browser;
 		//String BROWSER = System.getProperty("browser");
 
 		if (BROWSER.equals("chrome")) {
