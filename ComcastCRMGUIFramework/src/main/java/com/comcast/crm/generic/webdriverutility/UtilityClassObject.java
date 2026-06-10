@@ -26,7 +26,8 @@ public class UtilityClassObject {
 	}
 	
 	public static void unload() {
-        driver.remove();   // ⭐ removes thread reference
+        driver.remove();// ⭐ removes thread reference
+        test.remove();
     }
 
 }

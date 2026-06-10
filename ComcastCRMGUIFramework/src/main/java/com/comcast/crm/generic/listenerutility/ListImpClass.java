@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.IConfigurationListener;
 import org.testng.ISuite;
 import org.testng.ISuiteListener;
@@ -19,7 +20,7 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.comcast.crm.generic.webdriverutility.UtilityClassObject;
 
-public class ListImpClass implements ITestListener, ISuiteListener, IConfigurationListener{
+public class ListImpClass implements ITestListener, ISuiteListener, IConfigurationListener {
 
 	public static ExtentReports report;
 
@@ -30,7 +31,8 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 
 		// Spark report config
 		String time = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
-		ExtentSparkReporter spark = new ExtentSparkReporter("./AdvanceReport/"+suite.getName()+"_"+time+".html");
+		ExtentSparkReporter spark = new ExtentSparkReporter(
+				"./AdvanceReport/" + suite.getName() + "_" + time + ".html");
 		spark.config().setDocumentTitle("CRM Test Suite Results");
 		spark.config().setReportName("CRM Report");
 		spark.config().setTheme(Theme.DARK);
@@ -50,13 +52,21 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 		report.flush();
 
 	}
-	
+
 	@Override
 	public void onConfigurationFailure(ITestResult result) {
 
-	    UtilityClassObject.getTest().fail("CONFIGURATION FAILED: "+ result.getMethod().getMethodName());
+		ExtentTest test = UtilityClassObject.getTest();
 
-	    UtilityClassObject.getTest().fail(result.getThrowable());
+		if (test != null) {
+			test.fail("CONFIGURATION FAILED: " + result.getMethod().getMethodName());
+
+			test.fail(result.getThrowable());
+		}
+
+		if (result.getThrowable() != null) {
+			result.getThrowable().printStackTrace();
+		}
 	}
 
 	@Override
@@ -92,12 +102,24 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 //			e.printStackTrace();
 //		}
 
-		TakesScreenshot ts = (TakesScreenshot) UtilityClassObject.getDriver();
-		String time = new Date().toString().replace(" ", "_").replace(":", "_");
-		String filePath = ts.getScreenshotAs(OutputType.BASE64);
-		UtilityClassObject.getTest().addScreenCaptureFromBase64String(filePath, testName + "_" + time);
-		UtilityClassObject.getTest().fail(result.getThrowable());
-		//UtilityClassObject.getTest().log(Status.FAIL, result.getMethod().getMethodName() + "===>FAILED<===");
+		WebDriver driver = UtilityClassObject.getDriver();
+
+		if (driver != null) {
+
+			TakesScreenshot ts = (TakesScreenshot) driver;
+
+			String time = new Date().toString().replace(" ", "_").replace(":", "_");
+
+			String filePath = ts.getScreenshotAs(OutputType.BASE64);
+
+			ExtentTest test = UtilityClassObject.getTest();
+
+			if (test != null) {
+				test.addScreenCaptureFromBase64String(filePath, testName + "_" + time);
+
+				test.fail(result.getThrowable());
+			}
+		}
 
 	}
 
@@ -130,7 +152,5 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 		// TODO Auto-generated method stub
 		ITestListener.super.onFinish(context);
 	}
-	
-	
 
 }
