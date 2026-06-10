@@ -20,6 +20,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.comcast.crm.generic.databaseutility.DatabaseUtility;
@@ -54,11 +55,11 @@ public class BaseClass {
 
 	@Parameters("BROWSER")
 	@BeforeClass(alwaysRun = true)
-	public void launchBrowser(String browser) throws Throwable {
+	public void launchBrowser(@Optional("chrome") String browser) throws Throwable {
 
 		//String BROWSER = fLib.getDataFromPropFile("browser");
-		String BROWSER = browser;
 		//String BROWSER = System.getProperty("browser");
+		String BROWSER = browser;
 
 		if (BROWSER.equals("chrome")) {
 			driver = new ChromeDriver();
