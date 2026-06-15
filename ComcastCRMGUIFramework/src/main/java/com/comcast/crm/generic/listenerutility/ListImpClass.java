@@ -26,18 +26,16 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 
 	@Override
 	public void onStart(ISuite suite) {
-		// TODO Auto-generated method stub
-		System.out.println("Report Configuration");
-
-		// Spark report config
+		
 		String time = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
-		ExtentSparkReporter spark = new ExtentSparkReporter(
-				"./AdvanceReport/" + suite.getName() + "_" + time + ".html");
+
+		//Spark report config
+		ExtentSparkReporter spark = new ExtentSparkReporter("./AdvanceReport/" + suite.getName() + "_" + time + ".html");
 		spark.config().setDocumentTitle("CRM Test Suite Results");
 		spark.config().setReportName("CRM Report");
 		spark.config().setTheme(Theme.DARK);
 
-		// Add Env information & create test
+		//Add Env information
 		report = new ExtentReports();
 		report.attachReporter(spark);
 		report.setSystemInfo("OS", "Winodws-10");
@@ -46,9 +44,7 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 
 	@Override
 	public void onFinish(ISuite suite) {
-		// TODO Auto-generated method stub
-		System.out.println("Report BackUp");
-
+		
 		report.flush();
 
 	}
@@ -71,9 +67,8 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 
 	@Override
 	public void onTestStart(ITestResult result) {
-		// TODO Auto-generated method stub
-		System.out.println("========>" + result.getMethod().getMethodName() + ">======START========");
-
+		
+		//Create test
 		ExtentTest test = report.createTest(result.getMethod().getMethodName());
 		UtilityClassObject.setTest(test);
 		UtilityClassObject.getTest().log(Status.INFO, result.getMethod().getMethodName() + "===>STARTED<===");
@@ -81,14 +76,13 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		// TODO Auto-generated method stub
-		System.out.println("========>" + result.getMethod().getMethodName() + ">======END========");
+		
 		UtilityClassObject.getTest().log(Status.PASS, result.getMethod().getMethodName() + "===>COMPLETED<===");
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-		// TODO Auto-generated method stub
+		
 		String testName = result.getMethod().getMethodName();
 
 //		TakesScreenshot ts = (TakesScreenshot)BaseClass.sdriver;
@@ -108,7 +102,7 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 
 			TakesScreenshot ts = (TakesScreenshot) driver;
 
-			String time = new Date().toString().replace(" ", "_").replace(":", "_");
+			String time = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
 
 			String filePath = ts.getScreenshotAs(OutputType.BASE64);
 
@@ -116,7 +110,6 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 
 			if (test != null) {
 				test.addScreenCaptureFromBase64String(filePath, testName + "_" + time);
-
 				test.fail(result.getThrowable());
 			}
 		}
@@ -125,31 +118,31 @@ public class ListImpClass implements ITestListener, ISuiteListener, IConfigurati
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
-		// TODO Auto-generated method stub
+		
 		ITestListener.super.onTestSkipped(result);
 	}
 
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-		// TODO Auto-generated method stub
+		
 		ITestListener.super.onTestFailedButWithinSuccessPercentage(result);
 	}
 
 	@Override
 	public void onTestFailedWithTimeout(ITestResult result) {
-		// TODO Auto-generated method stub
+		
 		ITestListener.super.onTestFailedWithTimeout(result);
 	}
 
 	@Override
 	public void onStart(ITestContext context) {
-		// TODO Auto-generated method stub
+		
 		ITestListener.super.onStart(context);
 	}
 
 	@Override
 	public void onFinish(ITestContext context) {
-		// TODO Auto-generated method stub
+		
 		ITestListener.super.onFinish(context);
 	}
 

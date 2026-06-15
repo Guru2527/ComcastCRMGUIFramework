@@ -47,7 +47,7 @@ public class CreateContactTest extends BaseClass {
 		ContactInfoPage cInfo = new ContactInfoPage(UtilityClassObject.getDriver());
 
 		String conHeaderInfo = cInfo.getheaderInfoContact().getText();
-		Assert.assertTrue(conHeaderInfo.contains(last_Name));
+		Assert.assertTrue(conHeaderInfo.contains(last_Name), "Contact name verification failed");
 
 	}
 
@@ -80,13 +80,13 @@ public class CreateContactTest extends BaseClass {
 		ContactInfoPage cInfo = new ContactInfoPage(UtilityClassObject.getDriver());
 		
 		String conHeaderInfo = cInfo.getheaderInfoContact().getText();
-		Assert.assertTrue(conHeaderInfo.contains(last_Name));
+		Assert.assertTrue(conHeaderInfo.contains(last_Name),"Contact header verification failed");
 
 		String actStartDate = cInfo.getActStartDate().getText();
-		Assert.assertEquals(actStartDate, start_date);
+		Assert.assertEquals(actStartDate, start_date, "Start date verification failed");
 
 		String actEndDate = cInfo.getActEndDate().getText();
-		Assert.assertEquals(actEndDate, end_date);
+		Assert.assertEquals(actEndDate, end_date, "End date verification failed");
 
 	}
 	

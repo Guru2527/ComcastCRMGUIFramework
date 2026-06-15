@@ -46,7 +46,7 @@ public class CreateOrganizationTest extends BaseClass {
 		Assert.assertTrue(headerInfo.contains(org_Name), "Organization header verification failed");
 
 		String orgDetails = oip.getOrgDetails().getText();
-		Assert.assertEquals(orgDetails, org_Name);
+		Assert.assertEquals(orgDetails, org_Name, "Organization name verification failed");
 
 	}
 
@@ -82,10 +82,10 @@ public class CreateOrganizationTest extends BaseClass {
 		Assert.assertTrue(headerInfo.contains(org_Name), "Organization header verification failed");
 
 		String orgDetails = oip.getOrgDetails().getText();
-		Assert.assertEquals(orgDetails, org_Name);
+		Assert.assertEquals(orgDetails, org_Name, "Organization name verification failed");
 
 		String contactDetails = oip.getPhoneData().getText();
-		Assert.assertEquals(contactDetails, phNum);
+		Assert.assertEquals(contactDetails, phNum, "Phone number verification failed");
 
 	}
 
@@ -122,13 +122,13 @@ public class CreateOrganizationTest extends BaseClass {
 		Assert.assertTrue(headerInfo.contains(org_Name), "Organization header verification failed");
 		
 		String orgDetails = oip.getOrgDetails().getText();
-		Assert.assertEquals(orgDetails, org_Name);
+		Assert.assertEquals(orgDetails, org_Name, "Organization name verification failed");
 
 		String indData = oip.getIndData().getText();
-		Assert.assertEquals(indData, industry);
+		Assert.assertEquals(indData, industry, "Industry verification failed");
 
 		String typeData = oip.getTypeData().getText();
-		Assert.assertEquals(typeData, type);
+		Assert.assertEquals(typeData, type, "Type verification failed");
 
 	}
 

@@ -55,7 +55,7 @@ public class BaseClass {
 
 	@Parameters("BROWSER")
 	@BeforeClass(alwaysRun = true)
-	public void launchBrowser(@Optional("chrome") String browser) throws Throwable {
+	public void launchBrowser(@Optional("edge") String browser) throws Throwable {
 
 		//String BROWSER = fLib.getDataFromPropFile("browser");
 		//String BROWSER = System.getProperty("browser");

@@ -27,5 +27,12 @@ public class JavaUtility {
 		String reqDate = sim.format(cal.getTime());
 		return reqDate;
 	}
+	
+	public static String getTimeStamp() {
+		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+		Date date = new Date();
+		String timeStamp = sim.format(date);
+		return timeStamp;
+	}
 
 }
